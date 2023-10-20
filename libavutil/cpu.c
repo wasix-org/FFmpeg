@@ -246,7 +246,7 @@ int av_cpu_count(void)
     GetNativeSystemInfo(&sysinfo);
     nb_cpus = sysinfo.dwNumberOfProcessors;
 #endif
-
+#ifndef __wasm32
     if (!atomic_exchange_explicit(&printed, 1, memory_order_relaxed))
         av_log(NULL, AV_LOG_DEBUG, "detected %d logical cores\n", nb_cpus);
 
@@ -256,7 +256,7 @@ int av_cpu_count(void)
         nb_cpus = count;
         av_log(NULL, AV_LOG_DEBUG, "overriding to %d logical cores\n", nb_cpus);
     }
-
+#endif
     return nb_cpus;
 }
 

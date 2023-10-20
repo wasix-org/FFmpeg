@@ -1381,7 +1381,7 @@ static int opt_progress(void *optctx, const char *opt, const char *arg)
 
 int opt_timelimit(void *optctx, const char *opt, const char *arg)
 {
-#if HAVE_SETRLIMIT
+#if HAVE_SETRLIMIT && !defined(__wasm)
     int ret;
     double lim;
     struct rlimit rl;
